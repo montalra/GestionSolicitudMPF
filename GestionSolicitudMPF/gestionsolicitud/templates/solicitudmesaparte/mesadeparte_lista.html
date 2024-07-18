@@ -1,0 +1,113 @@
+{% extends 'menuusuario/menuusuario.html' %}
+{% load static %}
+{% block content %}
+
+<div class="wrapper">
+  <div class="content-wrapper">
+    <section class="content-header">
+      <div class="container-fluid">
+        <div class="row mb-2">
+          <div class="col-sm-6">
+            <h1>Mis Solicitudes de Mesa de Parte</h1>
+          </div>
+          <div class="col-sm-6">
+            <ol class="breadcrumb float-sm-right">
+              <li class="breadcrumb-item"><a href="{% url 'menu_principal' %}">Inicio</a></li>
+              <li class="breadcrumb-item active">Mis Solicitudes</li>
+            </ol>
+          </div>
+        </div>
+      </div><!-- /.container-fluid -->
+    </section>
+
+    <!-- Main content -->
+    <section class="content">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-12">
+            <div class="card">
+              <div class="card-header">
+                <h3 class="card-title">Aquí podrás visualizar tus solicitudes de Mesa de Parte registradas</h3>
+              </div>
+              <div class="card-header">
+                <a class="btn btn-primary col-2 btn-sm" href="{% url 'nuevo_solicitud_mesaparte' %}">Registrar
+                  Solicitud Mesa de Partes</a>
+              </div>
+              {% if messages %}
+              <div class="d-flex justify-content-center">
+                <div class="messages-container">
+                  <ul class="messages list-unstyled">
+                    {% for message in messages %}
+                    {% if 'solicitud' in message.tags %}
+                    <li class="alert alert-success">{{ message }}</li>
+                    {% endif %}
+                    {% endfor %}
+                  </ul>
+                </div>
+              </div>
+              {% endif %}
+
+              <!-- /.card-header -->
+              <div class="card-body">
+                <table id="example2" class="table table-bordered table-hover">
+                  <thead>
+                    <tr>
+                      <th>Nª</th>
+                      <th>Fecha de Solicitud</th>
+                      <th>Destinado</th>
+                      <th>Solicitado</th>
+                      <th style="word-wrap: break-word; max-width: 70px;">Correo Electronico</th>
+                      <th style="word-wrap: break-word; max-width: 80px;">Numero de documento</th>
+                      <th>Estado</th>
+                      <th>Comentario</th>
+                      <th>Telefono</th>
+                      <th>Opciones</th>
+                      <th>Domicilio</th>
+                      <th>Documento Adjuntos</th>
+                      <th>Arvhivos Adjuntos</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {% for solicitud in object_list %}
+                    <tr>
+                      <td>{{ forloop.counter }}</td>
+                      <td>{{ solicitud.fecha_solicitud }}</td>
+                      <td style="word-wrap: break-word; max-width: 100px;">{{ solicitud.destinatario }}</td>
+                      <td style="word-wrap: break-word; max-width: 130px;">{{ solicitud.descripcion_solicitud }}</td>
+                      <td style="word-wrap: break-word; max-width: 70px;">{{ solicitud.correo_electronico }}</td>
+                      <td>{{ solicitud.numero_documento }}</td>
+                      <td>{{ solicitud.estado.nombre }}</td>
+                      <td style="word-wrap: break-word; max-width: 100px;">{{ solicitud.comentario }}</td>
+                      <td>{{ solicitud.telefono }}</td>
+                      <td>
+                        <a href="{% url 'solicitud_mesa_parte_actualizar_usuario' solicitud.id %}"
+                        class="btn btn-warning btn-sm">Editar</a>
+                      <a href="{% url 'solicitud_mesa_parte_eliminar' solicitud.id %}"
+                        class="btn btn-danger btn-sm">Eliminar</a>
+                      </td>
+                      <td>{{ solicitud.domicilio_real }}
+                      <td>{{ solicitud.fundamento_solicitud }}
+                      <td>{{ solicitud.archivo_adjunto }}
+
+                    </tr>
+                    {% endfor %}
+                  </tbody>
+                </table>
+              </div>
+ 
+            </div>
+ 
+          </div>
+
+        </div>
+
+      </div>
+
+    </section>
+
+  </div>
+
+</div>
+
+
+{% endblock %}

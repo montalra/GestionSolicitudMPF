@@ -1,0 +1,105 @@
+{% extends 'menuusuario/menuusuario.html' %}
+{% load static %}
+{% block content %}
+
+<div class="wrapper">
+  <div class="content-wrapper">
+    <section class="content-header">
+      <div class="container-fluid">
+        <div class="row mb-2">
+          <div class="col-sm-6">
+            <h1>Mis Reportes de incidentes</h1>
+          </div>
+          <div class="col-sm-6">
+            <ol class="breadcrumb float-sm-right">
+              <li class="breadcrumb-item"><a href="{% url 'menu_principal' %}">Inicio</a></li>
+              <li class="breadcrumb-item active">Mis incidentes</li>
+            </ol>
+          </div>
+        </div>
+      </div><!-- /.container-fluid -->
+    </section>
+
+    <!-- Main content -->
+    <section class="content">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-12">
+            <div class="card">
+              <div class="card-header">
+                <h3 class="card-title">Aquí podrás visualizar tus reportes registrados</h3>
+              </div>
+              <div class="card-header">
+                <a class="btn btn-primary col-2 btn-sm" href="{% url 'nuevo_reporte_incidente' %}">Registrar
+                  Reportes de incidentes</a>
+              </div>
+              {% if messages %}
+              <div class="d-flex justify-content-center">
+                <div class="messages-container">
+                  <ul class="messages list-unstyled">
+                    {% for message in messages %}
+                    {% if 'reporte' in message.tags %}
+                    <li class="alert alert-success">{{ message }}</li>
+                    {% endif %}
+                    {% endfor %}
+                  </ul>
+                </div>
+              </div>
+              {% endif %}
+
+              <!-- /.card-header -->
+              <div class="card-body">
+                <table id="example2" class="table table-bordered table-hover">
+                  <thead>
+                    <tr>
+                      <th>Nª</th>
+                      <th>Fecha de Reporte</th>
+                      <th>Nombre</th>
+                      <th>departamento</th>
+                      <th style="word-wrap: break-word; max-width: 70px;">Tipo de Reporte </th>
+                      <th >Descripcion</th>
+                      <th >ubicacion</th>
+                      <th>Estado</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {% for incidente in object_list %}
+                    <tr>
+                      <td>{{ incidente.numero_seguimiento }}</td>
+                      <td>{{ incidente.fecha }}</td>
+                      <td >{{ incidente.nombre }}</td>
+                      <td >{{ incidente.departamento }}</td>
+                      <td >{{ incidente.tipo_incidente }}</td>
+                      <td>{{ incidente.detalles }}</td>
+                      <td>{{ incidente.ubicacion }}</td>
+                      <td>{{ incidente.estado.nombre }}</td>
+                      <td>
+                        <a href="{% url 'reporte_incidente_actualizar_usuario' incidente.id %}"
+                        class="btn btn-warning btn-sm">Editar</a>
+                        <a href="{% url 'reporte_incidente_eliminar' incidente.id %}"
+                        class="btn btn-danger btn-sm">Eliminar</a>
+                        
+                      </td>
+
+                    </tr>
+                    {% endfor %}
+                  </tbody>
+                </table>
+              </div>
+ 
+            </div>
+ 
+          </div>
+
+        </div>
+
+      </div>
+
+    </section>
+
+  </div>
+
+</div>
+
+
+{% endblock %}

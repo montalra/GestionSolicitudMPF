@@ -1,0 +1,106 @@
+{% extends 'menuadministrador/menuadministrador.html' %}
+{% load static %}
+{% block content %}
+
+<div class="wrapper">
+  <div class="content-wrapper">
+    <section class="content-header">
+      <div class="container-fluid">
+        <div class="row mb-2">
+          <div class="col-sm-6">
+            <h1>Solicitudes de Mesa de Parte</h1>
+          </div>
+          <div class="col-sm-6">
+            <ol class="breadcrumb float-sm-right">
+              <li class="breadcrumb-item"><a href="{% url 'panel_control' %}">Inicio</a></li>
+              <li class="breadcrumb-item active">Solicitudes</li>
+            </ol>
+          </div>
+        </div>
+      </div><!-- /.container-fluid -->
+    </section>
+
+    <!-- Main content -->
+    <section class="content">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-12">
+            <div class="card">
+              <div class="card-header">
+                <h3 class="card-title">Aquí podrás visualizar todas las solicitudes de Mesa de Parte registradas</h3>
+              </div>
+              {% if messages %}
+              <div class="d-flex justify-content-center">
+                <div class="messages-container">
+                  <ul class="messages list-unstyled">
+                    {% for message in messages %}
+                    {% if 'solicitudAd' in message.tags %}
+                    <li class="alert alert-success">{{ message }}</li>
+                    {% endif %}
+                    {% endfor %}
+                  </ul>
+                </div>
+              </div>
+              {% endif %}
+
+    
+              <!-- /.card-header -->
+              <div class="card-body">
+                <table id="example2" class="table table-bordered table-hover">
+                  <thead>
+                    <tr>
+                      <th>Nª</th>
+                      <th>Fecha de Solicitud</th>
+                      <th>Destinado</th>
+                      <th>Solicitado</th>
+                      <th style="word-wrap: break-word; max-width: 70px;">Correo Electronico</th>
+                      <th style="word-wrap: break-word; max-width: 80px;">Numero de documento</th>
+                      <th>Telefono</th>
+                      <th>Estado</th>
+                      <th>Opciones</th>
+                      <th>Domicilio</th>
+                      <th>Documento Adjuntos</th>
+                      <th>Arvhivos Adjuntos</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {% for solicitud in object_list %}
+                    <tr>
+                      <td>{{ forloop.counter }}</td>
+                      <td>{{ solicitud.fecha_solicitud }}</td>
+                      <td style="word-wrap: break-word; max-width: 100px;">{{ solicitud.destinatario }}</td>
+                      <td style="word-wrap: break-word; max-width: 130px;">{{ solicitud.descripcion_solicitud }}</td>
+                      <td style="word-wrap: break-word; max-width: 70px;">{{ solicitud.correo_electronico }}</td>
+                      <td>{{ solicitud.numero_documento }}</td>
+                      <td>{{ solicitud.telefono }}</td>
+                      <td>{{ solicitud.estado.nombre }}</td>
+                      <td>
+                        <a href="{% url 'solicitud_mesa_parte_actualizar_admin' solicitud.id %}"
+                        class="btn btn-warning btn-sm">VER</a>
+                      </td>
+                      <td>{{ solicitud.domicilio_real }}
+                      <td>{{ solicitud.fundamento_solicitud }}
+                      <td>{{ solicitud.archivo_adjunto }}
+
+                    </tr>
+                    {% endfor %}
+                  </tbody>
+                </table>
+              </div>
+ 
+            </div>
+ 
+          </div>
+
+        </div>
+
+      </div>
+
+    </section>
+
+  </div>
+
+</div>
+
+
+{% endblock %}

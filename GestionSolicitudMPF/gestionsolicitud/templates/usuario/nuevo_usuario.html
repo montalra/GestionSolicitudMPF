@@ -1,0 +1,157 @@
+{% extends 'base_registro_usuario.html' %}
+{% load static %}
+{% load crispy_forms_tags %}
+{% block content %}
+
+
+<div class="container-fluid">
+  <div class="row justify-content-center  align-items-center" style="min-height: 100vh;">
+      <form method="POST"   class="post-form" style="display: flex; flex-wrap: wrap; justify-content: center;">
+          {% csrf_token %}
+          <div class="card card-outline card-primary mx-2 col-xl-5 col-lg-5 col-md-6 col-sm-10 col-12">
+            <div class="card-header text-center">
+                  <h3 class="font-weight-bold">Registrarse Usuario</h3>
+              </div>
+              <div class="card-body">
+                  <p class="login-box-msg">Recuerda que todos los campos son obligatorios</p>
+                  <div class="form-group">
+                      <p class="font-weight-bold text-left">{{ persona_form.nombre.label_tag }} *</p><p>
+                      <div class="input-group mb-2">
+                          <span class="input-group-text">
+                              <i class="fas fa-user"></i>
+                          </span>
+                          {{ persona_form.nombre }}
+                      </div>
+                      {% if persona_form.nombre.errors %}
+                      <div class="errorlist" style="color: red; text-align: center; font-weight: bold; font-size: smaller;">
+                        {% for error in persona_form.nombre.errors %}
+                          {{ error }}
+                        {% endfor %}
+                      </div>
+                      {% endif %}
+                  </div>
+                  <div class="form-group">
+                    <p class="font-weight-bold text-left">{{ persona_form.apellidos.label_tag }} *</p>
+                    <div class="input-group mb-2">
+                      <div class="input-group-prepend">
+                        <div class="input-group-text">
+                          <i class="fas fa-user"></i>
+                        </div>
+                      </div>
+                      {{ persona_form.apellidos}}
+                    </div>
+                    {% if persona_form.apellidos.errors %}
+                    <div class="errorlist" style="color: red; text-align: center; font-weight: bold; font-size: smaller;">
+                      {% for error in persona_form.apellidos.errors %}
+                            {{ error }}
+                        {% endfor %}
+                    </div>
+                    {% endif %}
+                  </div>
+                  
+                  <div class="form-group">
+                    <p class="font-weight-bold text-left">{{ persona_form.tipo_identificacion.label_tag }} *</p>
+                    {{ persona_form.tipo_identificacion }}
+                  </div>
+
+                  <div class="form-group">
+                    <p class="font-weight-bold text-left">{{ persona_form.numero_identidad.label_tag }} *</p>
+                    <div class="input-group mb-2">
+                      <div class="input-group-prepend">
+                        <div class="input-group-text">
+                          <i class="fas fa-id-card"></i>
+                        </div>
+                      </div>
+                      {{ persona_form.numero_identidad }}
+                    </div>
+                    {% if persona_form.numero_identidad.errors %}
+                    <div class="errorlist" style="color: red; text-align: center; font-weight: bold; font-size: smaller;">
+                      {% for error in persona_form.numero_identidad.errors %}
+                      {{ error }}
+                      {% endfor %}
+                    </div>
+                    {% endif %}
+                  </div>
+    
+                  <div class="form-group">
+                    <p class="font-weight-bold text-left">{{ persona_form.celular.label_tag }} *</p>
+                    <div class="input-group mb-2">
+                      <div class="input-group-prepend">
+                        <div class="input-group-text">
+                          <i class="fas fa-phone"></i>
+                        </div>
+                      </div>
+                      {{ persona_form.celular }}
+                    </div>
+                    {% if persona_form.celular.errors %}
+                    <div class="errorlist" style="color: red; text-align: center; font-weight: bold; font-size: smaller;">
+                      {% for error in persona_form.celular.errors %}
+                            {{ error }}
+                        {% endfor %}
+                    </div>
+                    {% endif %}
+                  </div>
+              </div>
+          </div>
+          <div class="card card-outline card-primary mx-2 col-xl-5 col-lg-5 col-md-6 col-sm-10 col-12">
+            <div class="card-body" style="margin-left: -5px; margin-right: -10px;">
+                  <div class="form-group">
+                      <p class="font-weight-bold text-left">{{ usuario_form.email | as_crispy_field }}</p>
+                  </div>
+
+                  <div class="form-group">
+                    <div class="row align-items-center">
+                        <div class="col">
+                            {{ usuario_form.password1 | as_crispy_field }}
+                        </div>
+                        <div class="col-auto mb-5 mt-n5 visibility-button-container1">
+                            <button type="button" class="btn btn-outline-secondary " onclick="togglePasswordVisibility('id_password1', 'eyeIcon1')">
+                                <i id="eyeIcon1" class="fa fa-eye"></i>
+                            </button>
+                        </div>
+                    </div>
+                  </div>
+
+                  <div class="form-group">
+                    <div class="row align-items-center">
+                        <div class="col">
+                            {{ usuario_form.password2 | as_crispy_field }}
+                        </div>
+                        <div class="col-auto mb-2 mt-n1 ml-n6 visibility-button-container">
+                            <button type="button" class="btn btn-outline-secondary" onclick="togglePasswordVisibility('id_password2', 'eyeIcon2')">
+                                <i id="eyeIcon2" class="fa fa-eye"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                
+                  <div class="row">
+                      <div class="col-12">
+                          <div class="icheck-primary">
+                              <input type="checkbox" id="agreeTerms" name="terms" value="agree" required>
+                              <label for="agreeTerms">
+                                  Acepto los <a href="{% url 'terminos_condiciones' %}" >términos y condiciones</a>
+                              </label>
+                          </div>
+                      </div>
+                  </div>
+                  <div class="row mt-3">
+                      <div class="col-12">
+                          <button type="submit" class="save btn btn-primary btn-block">Registrarse</button>
+                      </div>
+                  </div>
+                  <div class="row mt-3">
+                      <div class="col-12">
+                          <p class="mb-0 text-center">¿Ya tienes una cuenta? <a href="{% url 'login' %}" class="text-center">Iniciar Sesion</a></p>
+                      </div>
+                  </div>
+              </div>
+          </div>
+      </form>
+  </div>
+</div>
+
+
+
+    
+{% endblock %}

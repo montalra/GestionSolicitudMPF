@@ -1,0 +1,415 @@
+{% extends 'menuusuario/menuusuario.html' %}
+{% load static %}
+{% load crispy_forms_tags %}
+{% block content %}
+<div class="content-wrapper">
+  <!-- Content Header (Page header) -->
+  <section class="content-header">
+    <div class="container-fluid">
+      <div class="row mb-2">
+        <div class="col-sm-6">
+          <h1>Mesa de Parte</h1>
+        </div>
+        <div class="col-sm-6">
+          <ol class="breadcrumb float-sm-right">
+            <li class="breadcrumb-item"><a href="#">Home</a></li>
+            <li class="breadcrumb-item active">Formato de Mesa de Parte</li>
+          </ol>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="content">
+    <div class="container-fluid">
+      <form method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        
+        {% if messages %}
+        <div class="alert alert-success">
+          {% for message in messages %}
+          <p>{{ message }}</p>
+          {% endfor %}
+        </div>
+        {% endif %}
+        {% if solicitud_form.errors %}
+        <div class="alert alert-danger">
+          <ul>
+            {% for field, errors in solicitud_form.errors.items %}
+            <li>{{ field }}: {{ errors }}</li>
+            {% endfor %}
+          </ul>
+        </div>
+        {% endif %}
+
+        <div class="row">
+          <div class="col-md-2">
+            <div class="card card-primary card-no-background">
+              <div class="text-center">
+                <img src="{% static 'assets/img/provincialogo.png' %}" class="brand-image img-square" alt="User Image">
+              </div>
+            </div>
+          </div>
+          <!-- /.col -->
+          <div class="col-md-10">
+            <div class="card card-no-background">
+              <div class="card-body">
+                <div class="tab-content">
+                  <div class="row">
+                    <div class="col-12 col-sm-3">
+                      <div class="info-box" style="border: 2px solid black;">
+                        <div class="info-box-content">
+                          <h4 class="info-box-text text-center" style="font-weight: bold">
+                            FORMATO<br>
+                            1000
+                          </h4>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-12 col-sm-9">
+                      <div class="info-box" style="border: 2px solid black;">
+                        <div class="info-box-content">
+                          <h5 class="info-box-text text-center" style="font-weight: bold">
+                            FORMATO DE ATENCIÓN AL PÚBLICO - FAP
+                          </h5>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-5 col-sm-5">
+                      <div class="info-box" style="border: 2px solid black;">
+                        <div class="info-box-content" style="padding: 10px; text-align: justify; line-height: 1.5;">
+                          <span style="font-size: 16px;">
+                            <strong>IMPORTANTE: </strong>LLENAR OBLIGATORIAMENTE Y CLARAMENTE LOS
+                            DATOS CON EXPRESIÓN CONCRETA Y PRECISA DEL PEDIDO,
+                            ADJUNTANDO LOS REQUISITOS EXIGIDOS EN EL TUPA (de no
+                            contar con los requisitos completos establecidos en el TUPA,
+                            tendrá un lapso de dos (02) días hábiles para subsanar, de lo
+                            contrario se dará por <u>NO PRESENTADO</u> el pedido (Art.136.2 y
+                            136.4 del TUO de la Ley 27444)
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-5 col-sm-7">
+                      <div class="info-box" style="border: 2px solid black;">
+                        <div class="info-box-content">
+                          <span style="font-size: smaller;">
+                            <div class="form-group">
+                              <span style="font-size: 16px;">
+                                {{ solicitud_form.destinatario.label_tag }}
+                                {{ solicitud_form.destinatario }}
+                              </span>
+                            </div>
+                            <span style="font-size: 17px;">
+                              de la Municipalidad Provincial de Ferreñafe;
+                            </span>
+                            <br>
+                            <span style="font-size: 17px;">
+                              {{ solicitud_form.descripcion_solicitud.label_tag }}
+                              {{ solicitud_form.descripcion_solicitud }}
+                            </span>
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-9">
+            <div class="card card-primary">
+              <div class="card-header">
+                <h4 class="card-title">1.1 IDENTIFICACION DEL ADMINISTRADOR (Art. 62°TUO de la Ley N°27444)</h4>
+              </div>
+              <div class="card-body">
+                <div class="row">
+                  <div class="col-sm-3">
+                    <div class="form-group">
+                      {{ solicitud_form.tipo_identificacion_administrador.label_tag }}
+                      {{ solicitud_form.tipo_identificacion_administrador }}
+                    </div>
+                  </div>
+                  <div class="col-sm-9">
+                    <div class="form-group">
+                      {{ solicitud_form.nombres_administrador.label_tag }}
+                      {{ solicitud_form.nombres_administrador }}
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="card-header">
+                <h4 class="card-title">1.2 DATOS DEL REPRESENTANTE LEGAL (Art. 62°TUO de la Ley N° 27444) de ser caso y
+                  debidamente acreditado</h4>
+              </div>
+              <div class="card-body">
+                <div class="row">
+                  <div class="col-sm-3">
+                    <div class="form-group">
+                      {{ solicitud_form.tipo_identificacion_representante.label_tag }}
+                      {{ solicitud_form.tipo_identificacion_representante }}
+                    </div>
+                  </div>
+                  <div class="col-sm-9">
+                    <div class="form-group">
+                      {{ solicitud_form.nombres_representante.label_tag }}
+                      {{ solicitud_form.nombres_representante }}
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="card-header">
+                <h4 class="card-title">1.3 DATOS DE TERCEROS CON REPRESENTANTE (Art. 126 TUO de la Ley N° 27444)
+                  acreditar su participación</h4>
+              </div>
+              <div class="card-body">
+                <div class="row">
+                  <div class="col-sm-3">
+                    <div class="form-group">
+                      {{ solicitud_form.tipo_identificacion_tercero.label_tag }}
+                      {{ solicitud_form.tipo_identificacion_tercero }}
+                    </div>
+                  </div>
+                  <div class="col-sm-9">
+                    <div class="form-group">
+                      {{ solicitud_form.nombre_tercero_representante.label_tag }}
+                      {{ solicitud_form.nombre_tercero_representante }}
+                    </div>
+                  </div>
+                </div>
+                <br>
+                <div class="row">
+                  <div class="col-sm-3">
+                    <div class="form-group">
+                      {{ solicitud_form.telefono.label_tag }}
+                      {{ solicitud_form.telefono }}
+                    </div>
+                  </div>
+                  <div class="col-sm-9">
+                    <div class="form-group">
+                      {{ solicitud_form.correo_electronico.label_tag }}
+                      {{ solicitud_form.correo_electronico }}
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="card-header">
+                <h4 class="card-title">1.4 DATOS DEL DOMICILIO (Art. 124 TUO de la Ley N°27444)</h4>
+              </div>
+              <div class="card-body">
+                <div class="form-group">
+                  {{ solicitud_form.domicilio_procesal.label_tag }}
+                  {{ solicitud_form.domicilio_procesal }}
+                </div>
+                <div class="form-group">
+                  {{ solicitud_form.domicilio_real.label_tag }}
+                  {{ solicitud_form.domicilio_real }}
+                </div>
+              </div>
+            </div>
+            <!-- /.card -->
+          </div>
+          <div class="col-md-3">
+            <div class="card card-secondary">
+              <div class="card-body">
+                <div class="form-group">
+                  {{ solicitud_form.numero_documento.label_tag }}
+                  {{ solicitud_form.numero_documento }}
+                </div>
+                <div class="form-group">
+                  {{ solicitud_form.numero_pago.label_tag }}
+                  {{ solicitud_form.numero_pago }}
+                </div>
+                <div class="form-group">
+                  {{ solicitud_form.fecha_recibo.label_tag }}
+                  {{ solicitud_form.fecha_recibo }}
+                </div>
+                <div class="form-group">
+                  {{ solicitud_form.monto_pago.label_tag }}
+                  {{ solicitud_form.monto_pago }}
+                </div>
+              </div>
+              <!-- /.card-body -->
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-7">
+            <div class="card card-warning">
+              <div class="card-header">
+                <h3 class="card-title">II. FUNDAMENTAR CLARA Y CONCRETAMENTE LO QUE SE LE SOLICITA (Art.124ª TUO Ley
+                  27444)</h3>
+              </div>
+              <div class="card-body">
+                <div class="col-md-12">
+                  <div class="form-group">
+                    {{ solicitud_form.descripcion_documento.label_tag }}
+                    {{ solicitud_form.descripcion_documento }}
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-5">
+            <div class="card card-no-background">
+              <h3 class="card-title">III. CROQUIS DE UBICACION (cuando se requiere en el TUPA)</h3>
+              <div class="card card-primary card-no-background">
+                <div class="text-center">
+                  <img src="{% static 'assets/img/croquisTupa.png' %}" class="custom-large-image img-square"
+                    alt="User Image">
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-12">
+          <div class="card card-success">
+            <div class="card-header">
+              <h3 class="card-title">IV. DOCUMENTOS ADJUNTOS (Art.124ª TUO Ley 27444) Relación de los documentos que se
+                adjuntan, requeridos por el TUPA</h3>
+            </div>
+            <div class="card-body">
+              <div class="row">
+                <div class="col-sm-6">
+                  <div class="form-group d-flex align-items-center">
+                    <label for="id_casilla1">{{ solicitud_form.casilla1.label }}</label>
+                    {{ solicitud_form.casilla1 }}
+                  </div>
+                </div>
+                <div class="col-sm-6">
+                  <div class="form-group d-flex align-items-center">
+                    <label for="id_casilla5">{{ solicitud_form.casilla5.label }}</label>
+                    {{ solicitud_form.casilla5 }}
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-sm-6">
+                  <div class="form-group d-flex align-items-center">
+                    <label for="id_casilla2">{{ solicitud_form.casilla2.label }}</label>
+                    {{ solicitud_form.casilla2 }}
+                  </div>
+                </div>
+                <div class="col-sm-6">
+                  <div class="form-group d-flex align-items-center">
+                    <label for="id_casilla6">{{ solicitud_form.casilla6.label }}</label>
+                    {{ solicitud_form.casilla6 }}
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-sm-6">
+                  <div class="form-group d-flex align-items-center">
+                    <label for="id_casilla3">{{ solicitud_form.casilla3.label }}</label>
+                    {{ solicitud_form.casilla3 }}
+                  </div>
+                </div>
+                <div class="col-sm-6">
+                  <div class="form-group d-flex align-items-center">
+                    <label for="id_casilla7">{{ solicitud_form.casilla7.label }}</label>
+                    {{ solicitud_form.casilla7 }}
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-sm-6">
+                  <div class="form-group d-flex align-items-center">
+                    <label for="id_casilla4">{{ solicitud_form.casilla4.label }}</label>
+                    {{ solicitud_form.casilla4 }}
+                  </div>
+                </div>
+                <div class="col-sm-6">
+                  <div class="form-group d-flex align-items-center">
+                    <label for="id_casilla6">{{ solicitud_form.casilla8.label }}</label>
+                    {{ solicitud_form.casilla8 }}
+                  </div>
+                </div>
+              </div>
+              <div class="form-group">
+                {{ solicitud_form.archivo_adjunto.label_tag }}
+                {{ solicitud_form.archivo_adjunto }}
+              </div>
+            </div>
+          </div>
+          <div class="container">
+            <div class="row mb-3">
+              <div class="col-5 offset-3 text-center">
+                <label class="text-center">{{ solicitud_form.fecha_solicitud.label }}</label>
+                {{ solicitud_form.fecha_solicitud }}
+              </div>
+            </div>
+            <div class="card card-no-background">
+              <div class="card-body">
+                <div class="tab-content">
+                  <div class="row">
+                    <div class="col-12 col-md-6">
+                      <div class="info-box"
+                        style="border: 2px solid black; padding: 10px; height: 310px; position: relative;">
+                        <div class="info-box-content"
+                          style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 90%; text-align: center;">
+                          <span style="font-size: smaller;">
+                            <strong>V- DECLARACION JURADA</strong><br>
+                            Firmo la presente, declaración bajo fé de juramento que la información presentada
+                            corresponden a la verdad de los hechos y que la documentación presentada es veraz;
+                            sometiéndome a los procesos y sanciones administrativas, civiles y/o penales en caso de
+                            encontrarse fraude o falsedad.<br>
+                            En caso de verificación posterior, brindaré las facilidades necesarias para las acciones de
+                            fiscalización y control a las autoridades municipales competentes.
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-12 col-md-6">
+                      <div class="info-box"
+                        style="border: 2px solid black; border-radius: 50%; padding: 10px; height: 310px; position: relative; overflow: hidden;">
+                        <div
+                          style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 90%; text-align: center;">
+                          <span style="font-size: smaller;">
+                            Nota.- De conformidad con el Art.51ª de TUO de la ley nª 27444, <br> todas las declaraciones
+                            juradas, los documentos sucedáneos <br> presentados y la información incluida en los
+                            formularios y escritos que presenten los administrados para la realización de procedimientos
+                            administrativos, se presumen verificados por quien hace uso de ellos, respecto a su propia
+                            situación así como de su contenido veraz para fines administrativos, salvo prueba en
+                            contrario.
+                          </span>
+                        </div>
+                      </div>
+                      <div class="row mb-3">
+                        <div class="col-12 text-center">
+                          <span style="font-size: larger;">
+                            TODO FORMULARIO ES <strong style="color: black;">GRATUITO</strong>
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row mb-3">
+          <div class="col-12 text-center">
+            <h6 class="info-box-text text-center" style="font-weight: bold">
+              Calle Nicanor Carmona Nª 436 - Ferreñafe Central telefónica 074 - 287876 www.muniferrenafe.gob.pe
+            </h6>
+          </div>
+        </div>
+        <div class="row mb-3">
+          <div class="col-12 text-center">
+            <button type="submit" class="btn btn-primary btn-lg px-4">Registrar</button>
+            <a class="btn btn-danger btn-lg px-4 py-2 me-3"
+              href="{% url 'solicitud_mesa_parte_lista_usuario' %}">Regresar</a>
+          </div>
+        </div>
+      </form>
+    </div>
+  </section>
+</div>
+
+{% endblock %}

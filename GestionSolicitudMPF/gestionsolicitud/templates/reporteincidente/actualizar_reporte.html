@@ -1,0 +1,140 @@
+{% extends 'menuusuario/menuusuario.html' %}
+{% load static %}
+{% load crispy_forms_tags %}
+{% block content %}
+<div class="content-wrapper">
+    <section class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div class="col-sm-6">
+                    <h1>Actualizar Reporte de Incidente</h1>
+                </div>
+                <div class="col-sm-6">
+                    <ol class="breadcrumb float-sm-right">
+                        <li class="breadcrumb-item"><a href="{% url 'menu_principal' %}">Inicio</a></li>
+                        <li class="breadcrumb-item active">Actualizar Reporte de Incidente</li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="content">
+        <div class="container-fluid">
+            <form method="POST" enctype="multipart/form-data">
+                {% csrf_token %}
+                {% if messages %}
+                <div class="alert alert-success">
+                    {% for message in messages %}
+                    <p>{{ message }}</p>
+                    {% endfor %}
+                </div>
+                {% endif %}
+                {% if incidente_form.errors %}
+                <div class="alert alert-danger">
+                    <ul>
+                        {% for field, errors in incidente_form.errors.items %}
+                        <li>{{ field }}: {{ errors }}</li>
+                        {% endfor %}
+                    </ul>
+                </div>
+                {% endif %}
+
+                <div class="incident-report-form">
+                    <div class="col-md-12">
+                        <div class="card card-primary">
+                            <div class="card-header">
+                              <h4 class="card-title">Detalles de la Persona</h4>
+                            </div>
+                            <div class="card-body">
+                                <div class="form-group">
+                                    {{ incidente_form.nombre.label_tag }}
+                                    {{ incidente_form.nombre }}
+                                </div>
+                                <div class="form-group form-row">
+                                    <div class="col">
+                                        {{ incidente_form.departamento.label_tag }}
+                                        {{ incidente_form.departamento }}
+                                    </div>
+                                    <div class="col">
+                                        {{ incidente_form.telefono.label_tag }}
+                                        {{ incidente_form.telefono }}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-12">
+                        <div class="card card-primary">
+                            <div class="card-header">
+                              <h4 class="card-title">Descripción del Incidente</h4>
+                            </div>
+                            <div class="card-body">
+                                <div class="form-group">
+                                    {{ incidente_form.tipo_incidente.label_tag }}
+                                    <select id="tipo_incidente" name="tipo_incidente" class="form-control">
+                                        <option value="via-publica" {% if incidente_form.instance.tipo_incidente == "via-publica" %}selected{% endif %}>Vía Pública</option>
+                                        <option value="averias" {% if incidente_form.instance.tipo_incidente == "averias" %}selected{% endif %}>Averías</option>
+                                        <option value="alumbrado-electrico" {% if incidente_form.instance.tipo_incidente == "alumbrado-electrico" %}selected{% endif %}>Alumbrado Eléctrico</option>
+                                        <option value="otros" {% if incidente_form.instance.tipo_incidente == "otros" %}selected{% endif %}>Otros</option>
+                                    </select>
+                                </div>
+                                <div class="form-group form-row">
+                                    <div class="col">
+                                        {{ incidente_form.fecha.label_tag }}
+                                        {{ incidente_form.fecha }}
+                                    </div>
+                                    <div class="col">
+                                        {{ incidente_form.hora.label_tag }}
+                                        {{ incidente_form.hora }}
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    {{ incidente_form.ubicacion.label_tag }}
+                                    {{ incidente_form.ubicacion }}
+                                </div>
+                                <div class="form-group">
+                                    {{ incidente_form.detalles.label_tag }}
+                                    {{ incidente_form.detalles }}
+                                </div>
+                                <div class="form-group">
+                                    {{ incidente_form.policia_notificado.label_tag }}
+                                    <select id="policia_notificado" name="policia_notificado" class="form-control">
+                                        <option value="si" {% if incidente_form.instance.policia_notificado == "si" %}selected{% endif %}>Sí</option>
+                                        <option value="no" {% if incidente_form.instance.policia_notificado == "no" %}selected{% endif %}>No</option>
+                                    </select>
+                                </div>
+                                <div class="form-group form-row">
+                                    <div class="col">
+                                        {{ incidente_form.causas.label_tag }}
+                                        {{ incidente_form.causas }}
+                                    </div>
+                                    <div class="col">
+                                        {{ incidente_form.recomendaciones.label_tag }}
+                                        {{ incidente_form.recomendaciones }}
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    {{ incidente_form.notas.label_tag }}
+                                    {{ incidente_form.notas }}
+                                </div>
+                                <div class="form-group">
+                                    {{ incidente_form.imagen.label_tag }}
+                                    {{ incidente_form.imagen }}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <div class="col-12 text-center">
+                          <button type="submit" class="btn btn-primary btn-lg px-4">Actualizar</button>
+                          <a class="btn btn-danger btn-lg px-4 py-2 me-3" href="{% url 'lista_reportes_incidente' %}">Regresar</a> 
+                        </div>
+                    </div> 
+                </div>
+            </form>
+        </div>
+    </section>
+</div>
+{% endblock %}

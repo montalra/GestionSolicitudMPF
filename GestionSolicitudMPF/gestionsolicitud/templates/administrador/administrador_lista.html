@@ -1,0 +1,108 @@
+{% extends 'menuadministrador/menuadministrador.html' %}
+{% load static %}
+{% block content %}
+
+<div class="wrapper">
+  <div class="content-wrapper">
+    <section class="content-header">
+      <div class="container-fluid">
+        <div class="row mb-2">
+          <div class="col-sm-6">
+            <h1>Lista Administradores</h1>
+          </div>
+          <div class="col-sm-6">
+            <ol class="breadcrumb float-sm-right">
+              <li class="breadcrumb-item"><a href="{% url 'panel_control' %}">Home</a></li>
+              <li class="breadcrumb-item active">Tabla Administradores</li>
+            </ol>
+          </div>
+        </div>
+      </div><!-- /.container-fluid -->
+    </section>
+
+    <!-- Main content -->
+    <section class="content">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-12">
+            <div class="card">
+              <div class="card-header">
+                <h3 class="card-title">Aqui podras registrar y visualizar la listas de los administradores registrados
+                </h3>
+              </div>
+              <div class="card-header">
+                <a class="btn btn-primary col-2 btn-sm" href="{% url 'nuevo_administrador' %}">Registrar
+                  Administrador</a>
+              </div>
+              {% if messages %}
+              <div class="d-flex justify-content-center">
+                <div class="messages-container">
+                  <ul class="messages list-unstyled">
+                    {% for message in messages %}
+                    {% if 'administrador' in message.tags %}
+                    <li class="alert alert-danger">{{ message }}</li>
+                    {% endif %}
+                    {% endfor %}
+                  </ul>
+                </div>
+              </div>
+              {% endif %}
+
+              <!-- /.card-header -->
+              <div class="card-body">
+                <table id="example2" class="table table-bordered table-hover">
+                  <thead>
+                    <tr>
+                    <tr>
+                      <th>Nª</th>
+                      <th>Rol</th>
+                      <th>Nombre</th>
+                      <th>Apellido</th>
+                      <th>Tipo Documento</th>
+                      <th>Nª Indentidad</th>
+                      <th>Correo</th>
+                      <th>Celular</th>
+                      <th>Opciones</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {% for administrador in object_list %}
+                    <tr>
+
+                      <td>{{ forloop.counter }}</td>
+                      <td>{{ administrador.rol.nombre }}</td>
+                      <td>{{ administrador.persona.nombre }}</td>
+                      <td>{{ administrador.persona.apellidos }}</td>
+                      <td>{{ administrador.persona.tipo_identificacion }}</td>
+                      <td>{{ administrador.persona.numero_identidad }}</td>
+                      <td>{{ administrador.email }}</td>
+                      <td>{{ administrador.persona.celular }}</td>
+                      <td>
+                        <a href="{% url 'administrador_actualizar' administrador.id %}"
+                          class="btn btn-warning btn-sm">Editar</a>
+                        <a href="{% url 'administrador_eliminar' administrador.id %}"
+                          class="btn btn-danger btn-sm">Eliminar</a>
+                      </td>
+                    </tr>
+                    {% endfor %}
+                  </tbody>
+
+                </table>
+              </div>
+
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </section>
+
+  </div>
+
+</div>
+
+
+{% endblock %}

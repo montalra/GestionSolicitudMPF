@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- Google Font: Source Sans Pro -->
+  <link rel="stylesheet"href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+  <link rel="stylesheet" href="{% static 'css/base.css'%}">
+  <link rel="stylesheet" href="{% static 'css/adminlte.min.css'%}">
+  
+  <link rel="stylesheet" href="{% static 'css/dataTables.bootstrap4.min.css' %}">
+  <link rel="stylesheet" href="{% static 'css/buttons.bootstrap4.min.css' %}">
+  <link rel="stylesheet" href="{% static 'css/responsive.bootstrap4.min.css' %}">
+
+  <link rel="stylesheet" href="{% static 'css/precargador.css' %}">
+  <link rel="stylesheet" href="{% static 'css/mensajes.css' %}">
+  <link rel="stylesheet" href="{% static 'css/mesaparte.css' %}">
+
+ 
+
+
+</head>
+
+
+<body class="hold-transition sidebar-mini {% if session_expired %}session-expired{% endif %}">
+
+  {% block navbar %}
+    {% if user.is_authenticated %}
+      {% if user.rol.nombre == "Usuario" %}
+       <title>Atencion de Solicitudes</title>
+        {% block user_content %}
+        {% endblock %}
+
+
+      {% elif user.rol.nombre == "Administrador" %}
+      <title>Gestion de Solicitudes</title>
+        {% block admin_content %}
+        {% endblock %} 
+
+
+      {% endif %}
+
+      {% block content %}
+      {% endblock %}
+      <footer class="main-footer" style="text-align: center;">
+        <strong>Copyright &copy; 2024-2026 <a href="">Municipalidad Provincial de
+            Ferreñafe</a>.</strong> Todos los derechos reservados.
+      </footer>
+      
+    {% else %}
+
+      <p>Debes <a href="{% url 'login' %}?next={{ request.path }}">iniciar sesión</a> para ver esta página.</p>   
+    {% endif %}
+
+  {% endblock %}
+
+  <script src="{% static 'js/jquery.min.js'%}"></script>
+  <script src="{% static 'js/bootstrap.bundle.min.js'%}"></script>
+  <script src="{% static 'js/adminlte.js' %}"></script>
+  <script src="{% static 'js/expireseccion.js'%}"></script>
+  <script src="{% static 'js/Chart.min.js'%}"></script>
+  <script src="{% static 'js/dashboard3.js'%}"></script>
+  <script src="{% static 'js/tablanumero.js'%}"></script>
+  <script src="{% static 'js/precargador.js' %}"></script>
+  
+  <script src="{% static 'js/jquery.dataTables.min.js'%}"></script>
+  <script src="{% static 'js/dataTables.bootstrap4.min.js'%}"></script>
+  <script src="{% static 'js/dataTables.responsive.min.js'%}"></script>
+  <script src="{% static 'js/responsive.bootstrap4.min.js'%}"></script>
+  <script src="{% static 'js/dataTables.buttons.min.js'%}"></script>
+  <script src="{% static 'js/buttons.bootstrap4.min.js'%}"></script>
+  <script src="{% static 'js/jsgrid.min.js'%}"></script>
+  <script src="{% static 'js/pdfmake.min.js'%}"></script>
+  <script src="{% static 'js/buttons.html5.min.js'%}"></script>
+  <script src="{% static 'js/buttons.print.min.js'%}"></script>
+  <script src="{% static 'js/buttons.colVis.min.js'%}"></script>
+  <script src="{% static 'js/mensajes.js'%}"></script>
+
+</body>
+
+</html>

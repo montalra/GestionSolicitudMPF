@@ -1,0 +1,93 @@
+{% extends 'base_generic.html' %}
+
+{% load crispy_forms_tags %}
+{% load static %}
+{% block content %}
+
+<style>
+    body {
+        background-color: rgba(255, 255, 255, 0.5);
+        background-image: url("{% static 'assets/img/ferreñafe.jpeg' %}");
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+        height: 100vh; 
+
+    }
+</style>
+
+<section class="full-width pageContent">
+  
+    <section class="full-width text-center" style="padding: 40px 0;">
+        <div class="login-box">
+            <div class="login-logo">
+                <div class="row align-items-center mb-3">
+                    <div class="row align-items-center mb-3">
+                        <div class="col-auto pr-0">
+                            <img src="{% static 'assets/img/logo.png' %}" alt="Logo Municipalidad" class="img-fluid mb-1" style="max-height: 80px;">
+                        </div>
+
+                    </div>
+                </div>    
+            </div>
+            <div class="card">
+                <div class="card-body login-card-body">
+                   <h3 class="font-weight-bold">Iniciar sesión</h3>
+                   <p class="text-center">Ingresa su correo electrónico y contraseña validos para hacer su solicitud </p>
+                  <form method="post">
+                    {% csrf_token %}
+
+                    {% if messages %}
+                    <div class="messages-container">
+                        <ul class="messages">
+                            {% for message in messages %}
+                                <li>{{ message }}</li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                   {% endif %}
+                    <input type="hidden" name="next" value="{{ next }}">
+
+                    <p class="font-weight-bold text-left">Correo electrónico: </p>
+                    <div class="input-group mb-3">
+                        <input type="email" name="email" class="form-control" placeholder="Correo electrónico" required>
+                        <span class="input-group-text">
+                            <i class="fa fa-envelope"></i>
+                        </span>
+                    </div>
+                    
+                    <p class="font-weight-bold text-left">Contraseña:</p>
+                    <div class="input-group mb-3">
+                        <input type="password" name="password" id="id_password" class="form-control" placeholder="Contraseña" required>
+                        <span class="input-group-text">
+                            <i class="fa fa-lock"></i>
+                        </span>
+                        <div class="input-group-append">
+                            <button type="button" id="showPasswordBtn" class="btn btn-outline-secondary" onclick="togglePasswordVisibility()">
+                                <i id="eyeIcon" class="fa fa-eye"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col"> 
+                            <div class="input-group mb-3">
+                                <button type="submit" class="btn btn-primary btn-block">Acceso</button> 
+                            </div>
+                        </div>
+                    </div>
+                    
+                  </form>
+                  <hr></hr>
+                  <p class="mb-0">
+                    <p class="mb-0 text-center">¿No tienes una cuenta? <a href="{% url 'nuevo_usuario' %}" class="text-center">Registrate aqui</a>
+                  </p>
+                </div>
+            </div>   
+        </div>
+    </section>
+
+</section>
+
+
+{% endblock %}

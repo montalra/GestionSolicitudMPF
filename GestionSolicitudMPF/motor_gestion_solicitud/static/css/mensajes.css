@@ -1,0 +1,11 @@
+.messages-container {
+    margin-top: 20px;
+    width: 100%;
+    max-width: 600px;
+}
+
+.alert-danger {
+    color: #a94442;
+    background-color: #f2dede;
+    border-color: #ebccd1;
+}

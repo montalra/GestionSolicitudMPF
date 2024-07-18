@@ -1,0 +1,170 @@
+{% extends 'menuusuario/menuusuario.html' %}
+{% load static %}
+{% block content %}
+{% load crispy_forms_tags %}
+
+<div class="content-wrapper">
+  <!-- Content Header (Page header) -->
+  <section class="content-header">
+    <div class="container-fluid">
+      <div class="row mb-2">
+        <div class="col-sm-6">
+          <h1>Pefil</h1>
+        </div>
+        <div class="col-sm-6">
+          <ol class="breadcrumb float-sm-right">
+            <li class="breadcrumb-item"><a href="{% url 'menu_principal' %}">Home</a></li>
+            <li class="breadcrumb-item active">Perfil del Usuario</li>
+          </ol>
+        </div>
+      </div>
+    </div><!-- /.container-fluid -->
+  </section>
+
+  <!-- Main content -->
+  <section class="content">
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-md-3">
+
+          <!-- Profile Image -->
+          <div class="card card-primary card-outline">
+            <div class="card-body box-profile">
+              <div class="text-center">
+                <img class="profile-user-img img-fluid img-circle" src="{% static 'assets/img/user2-160x160.jpg'%}"
+                  alt="User profile picture">
+              </div>
+
+              <h3 class="profile-username text-center">{{ user.persona.nombre }}</h3>
+
+              <p class="text-muted text-center">{{ user.rol }}</p>
+
+              <ul class="list-group list-group-unbordered mb-3">
+                <li class="list-group-item">
+                  <b>Solicitudes</b> <a class="float-right"></a>
+                </li>
+                <li class="list-group-item">
+                  <b>Reportes</b> <a class="float-right"></a>
+                </li>
+              </ul>
+            </div>
+            <!-- /.card-body -->
+          </div>
+          <!-- /.card -->
+
+          <!-- About Me Box -->
+          <div class="card card-primary">
+            <div class="card-header">
+              <h3 class="card-title">Acerca de mí</h3>
+            </div>
+            <!-- /.card-header -->
+            <div class="card-body">
+              <strong><i class="fas fa-book mr-1"></i> DNI</strong>
+
+              <p class="text-muted">
+                {{ user.persona.numero_identidad }}
+              </p>
+
+              <hr>
+
+              <strong><i class="fas fa-map-marker-alt mr-1"></i> Celular</strong>
+
+              <p class="text-muted">{{ user.persona.celular }}</p>
+
+              <hr>
+
+              <strong><i class="fas fa-pencil-alt mr-1"></i> Skills</strong>
+
+              <p class="text-muted">
+                <span class="tag tag-danger">UI Design</span>
+                <span class="tag tag-success">Coding</span>
+                <span class="tag tag-info">Javascript</span>
+                <span class="tag tag-warning">PHP</span>
+                <span class="tag tag-primary">Node.js</span>
+              </p>
+
+              <hr>
+
+              <strong><i class="far fa-file-alt mr-1"></i> Notes</strong>
+
+              <p class="text-muted">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam fermentum enim neque.
+              </p>
+            </div>
+            <!-- /.card-body -->
+          </div>
+          <!-- /.card -->
+        </div>
+        <!-- /.col -->
+        <div class="col-md-9">
+          <div class="card">
+            <div class="card-header p-2">
+              <h3 class="card-title">Actualizar Información</h3>
+            </div>
+            <div class="card-body">
+              <form method="post">
+                {% csrf_token %}
+                {{ persona_form|crispy }}
+                <hr>
+                {{ usuario_form|crispy }}
+
+                <div class="form-group">
+                  <p class="font-weight-bold text-left"></p>{{ password_change_form.old_password.label_tag }}
+                  <div class="input-group mb-2">
+                    {{ password_change_form.old_password }}
+                  </div>
+                  {% if password_change_form.old_password.errors %}
+                  <div class="errorlist" style="color: red; text-align: center; font-weight: bold; font-size: smaller;">
+                    {% for error in password_change_form.old_password.errors %}
+                    {{ error }}
+                    {% endfor %}
+                  </div>
+                  {% endif %}
+                </div>
+
+                <div class="form-group">
+                  <p class="font-weight-bold text-left"></p>{{ password_change_form.new_password1.label_tag }}
+                  <div class="input-group mb-2">
+                    {{ password_change_form.new_password1 }}
+
+                  </div>
+                  {% if password_change_form.new_password1.errors %}
+                  <div class="errorlist" style="color: red; text-align: center; font-weight: bold; font-size: smaller;">
+                    {% for error in password_change_form.new_password1.errors %}
+                    {{ error }}
+                    {% endfor %}
+                  </div>
+                  {% endif %}
+                </div>
+
+                <div class="form-group">
+                  <p class="font-weight-bold text-left"></p>{{ password_change_form.new_password2.label_tag }}
+                  <div class="input-group mb-2">
+                    {{ password_change_form.new_password2 }}
+                  </div>
+                  {% if password_change_form.new_password2.errors %}
+                  <div class="errorlist" style="color: red; text-align: center; font-weight: bold; font-size: smaller;">
+                    {% for error in password_change_form.new_password2.errors %}
+                    {{ error }}
+                    {% endfor %}
+                  </div>
+                  {% endif %}
+                </div>
+                <div class="form-group">
+                  <button type="submit" class="btn btn-primary">Guardar Cambios</button>
+                </div>
+              </form>
+            </div>
+          </div>
+
+        </div>
+        <!-- /.card -->
+      </div>
+      <!-- /.col -->
+    </div>
+    <!-- /.row -->
+</div><!-- /.container-fluid -->
+</section>
+<!-- /.content -->
+</div>
+
+{% endblock %}

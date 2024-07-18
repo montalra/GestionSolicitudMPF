@@ -1,0 +1,93 @@
+{% extends 'menuadministrador/menuadministrador.html' %}
+{% load static %}
+{% block content %}
+
+<div class="wrapper">
+  <div class="content-wrapper">
+    <section class="content-header">
+      <div class="container-fluid">
+        <div class="row mb-2">
+          <div class="col-sm-6">
+            <h1>Lista Tipo de Documentos</h1>
+          </div>
+          <div class="col-sm-6">
+            <ol class="breadcrumb float-sm-right">
+              <li class="breadcrumb-item"><a href="{% url 'panel_control' %}">Home</a></li>
+              <li class="breadcrumb-item active">Tabla de Tipo de Documentos</li>
+            </ol>
+          </div>
+        </div>
+      </div><!-- /.container-fluid -->
+    </section>
+
+    <!-- Main content -->
+    <section class="content">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-12">
+            <div class="card">
+              <div class="card-header">
+                <h3 class="card-title">Aqui podras registrar y visualizar la listas de los documento registrados</h3>
+              </div>
+              <div class="card-header">
+                <a class="btn btn-primary col-2 btn-sm" href="{% url 'nuevo_documento' %}">Registrar Tipo Documento</a>
+              </div>
+              {% if messages %}
+              <div class="d-flex justify-content-center">
+                <div class="messages-container">
+                  <ul class="messages list-unstyled">
+                    {% for message in messages %}
+                    {% if 'documento' in message.tags %}
+                    <li class="alert alert-danger">{{ message }}</li>
+                    {% endif %}
+                    {% endfor %}
+                  </ul>
+                </div>
+              </div>
+              {% endif %}
+              <!-- /.card-header -->
+              <div class="card-body">
+                <table id="example2" class="table table-bordered table-hover">
+                  <thead>
+                  <tr>
+                    <tr>
+                      <th>Nª</th>
+                      <th>Nombre</th>
+                      <th>Descripcion</th>
+                      <th>Opciones</th> 
+                  </tr>
+                  </thead>
+                  <tbody>
+                    {% for documento in object_list %}
+                    <tr>
+                        
+                        <td>{{ documento.id }}</td>
+                        <td>{{ documento.nombre }}</td>
+                        <td>{{ documento.descripcion }}</td>
+                        <td>
+                            <a href="{% url 'documento_actualizar' documento_id=documento.id %}" class="btn btn-warning btn-sm">Actualizar</a>
+                            <a href="{% url 'documento_eliminar' documento_id=documento.id %}" class="btn btn-danger btn-sm">Eliminar</a>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                  </tbody>
+
+                </table>
+              </div>
+
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </section>
+
+  </div>
+
+</div>
+
+
+{% endblock %}

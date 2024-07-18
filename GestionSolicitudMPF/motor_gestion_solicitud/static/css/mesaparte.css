@@ -1,0 +1,38 @@
+.card-no-background {
+    background-color: transparent;
+    border: none;
+    box-shadow: none;
+  }
+  .brand-image {
+    width: 180px;
+    height: 180px;
+  }
+  @media (max-width: 768px) {
+    .brand-image {
+      width: 150px;
+      height: 150px;
+    }
+  }
+  @media (max-width: 576px) {
+    .brand-image {
+      width: 100px;
+      height: 100px;
+    }
+  }
+  .custom-large-image {
+    width: 400px; 
+    height: auto;
+  }
+  @media (max-width: 768px) {
+    .custom-large-image {
+      width: 250px;
+      height: 250px;
+    }
+  }
+  @media (max-width: 576px) {
+    .custom-large-image {
+      width: 200px;
+      height: 200px;
+    }
+  }
+

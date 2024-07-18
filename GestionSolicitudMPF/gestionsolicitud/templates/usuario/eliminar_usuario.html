@@ -1,0 +1,35 @@
+{% extends 'menuadministrador/menuadministrador.html' %}
+
+{% block content %}
+
+<div class="wrapper">
+    <div class="content-wrapper">
+        <section class="content">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-md-6 offset-md-3">
+                        <div class="card card-danger">
+                            <div class="card-header">
+                                <h3 class="card-title">Eliminar Administrador</h3>
+                            </div>
+                            <div class="card-body">
+                                <p>¿Estás seguro de que deseas eliminar este administrador?</p>
+                                <p><strong>{{ user.persona.nombre }} {{ user.persona.apellidos }}</strong></p>
+                            </div>
+                            <div class="card-footer">
+                                <form method="post">
+                                    {% csrf_token %}
+                                    <button type="submit" class="btn btn-danger mr-2">Eliminar</button>
+                                    <a href="{% url 'ususario_lista' %}" class="btn btn-secondary">Cancelar</a>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+</div>
+
+
+{% endblock %}
